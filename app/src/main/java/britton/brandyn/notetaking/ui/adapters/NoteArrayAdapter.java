@@ -73,7 +73,7 @@ public class NoteArrayAdapter extends ArrayAdapter {
         // Populate the viewholder with note data
         NoteItem noteItem = notes.get(position);
         viewHolder.title.setText(noteItem.getTitle());
-        viewHolder.title.setText(noteItem.getDescription());
+        viewHolder.description.setText(noteItem.getDescription().trim());
 
         return convertView;
 

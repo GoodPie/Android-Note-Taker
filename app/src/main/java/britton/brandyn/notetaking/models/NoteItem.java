@@ -25,9 +25,9 @@ public class NoteItem {
 
     public NoteItem(String title, String description, String thumbnail) {
         this.title = validateTitle(title);
-        this.description = description;
-        this.thumbnail = thumbnail;
-        this.completed = false;
+        setDescription(description);
+        setThumbnail(thumbnail);
+        setCompleted(false);
     }
 
     /**
