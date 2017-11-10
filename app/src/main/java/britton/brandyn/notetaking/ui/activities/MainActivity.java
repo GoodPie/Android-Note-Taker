@@ -1,10 +1,8 @@
 package britton.brandyn.notetaking.ui.activities;
 
 import android.arch.persistence.room.Room;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -15,11 +13,11 @@ import android.view.MenuItem;
 
 import britton.brandyn.notetaking.R;
 import britton.brandyn.notetaking.helpers.NotesDatabase;
-import britton.brandyn.notetaking.models.NoteItem;
 import britton.brandyn.notetaking.ui.fragments.NewNoteFragment;
-import britton.brandyn.notetaking.ui.fragments.NotesFragment;
+import britton.brandyn.notetaking.ui.fragments.NoteFragment;
+import britton.brandyn.notetaking.ui.fragments.NotesHomeFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NoteFragment.NoteFragmentInterface {
 
     private NotesDatabase mDatabase = null;
 
@@ -42,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Load the initial fragment
-        loadFragment(NotesFragment.newInstance(), null, false);
+        loadFragment(NotesHomeFragment.newInstance(), null, false);
 
     }
 
@@ -72,6 +70,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Loads a fragment to view
+     *
+     * @param newFragment   The fragment to load
+     * @param tag           Tag related to the fragment
+     * @param addToBack     Whether to add to back stack or not (tag ignore if false)
+     */
     public void loadFragment(Fragment newFragment, String tag, boolean addToBack) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment, newFragment);
@@ -82,18 +87,29 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    /**
+     * Shows the floating action button
+     */
     public void showFAB()
     {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.show();
     }
 
+    /**
+     * Hides the floating action button
+     */
     public void hideFAB()
     {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.hide();
     }
 
+    /**
+     * Creates or retrieves the current database
+     *
+     * @return Database object
+     */
     public NotesDatabase getDatabase()
     {
         if (mDatabase == null) {
@@ -105,4 +121,13 @@ public class MainActivity extends AppCompatActivity {
         return mDatabase;
     }
 
+    @Override
+    public void OnNoteClicked(int noteId) {
+        // Create new notes fragment
+        NoteFragment fragment = NoteFragment.newInstance(noteId);
+        String tag = NoteFragment.TAG;
+
+        // Load fragment to view
+        loadFragment(fragment, tag, true);
+    }
 }

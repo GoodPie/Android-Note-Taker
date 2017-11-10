@@ -1,6 +1,5 @@
 package britton.brandyn.notetaking.ui.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,11 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import britton.brandyn.notetaking.R;
 import britton.brandyn.notetaking.models.NoteItem;
-import britton.brandyn.notetaking.ui.activities.MainActivity;
 
 public class NoteArrayAdapter extends ArrayAdapter {
 
@@ -59,7 +56,7 @@ public class NoteArrayAdapter extends ArrayAdapter {
             // Init viewholder
             viewHolder = new ViewHolder();
             viewHolder.title = (TextView) convertView.findViewById(R.id.tv_note_title);
-            viewHolder.description = (TextView) convertView.findViewById(R.id.tv_note_description);
+            viewHolder.description = (TextView) convertView.findViewById(R.id.tv_note_desc);
             viewHolder.thumbnail = (ImageView) convertView.findViewById(R.id.iv_note_thumb);
 
             // Set tag

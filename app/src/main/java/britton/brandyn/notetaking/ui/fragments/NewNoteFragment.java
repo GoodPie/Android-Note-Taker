@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,7 +47,7 @@ public class NewNoteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_new_task, container, false);
+        View view = inflater.inflate(R.layout.fragment_new_note, container, false);
 
         // Hide the floating action button
         ((MainActivity) getActivity()).hideFAB();
@@ -125,7 +124,7 @@ public class NewNoteFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            ((MainActivity) getActivity()).loadFragment(NotesFragment.newInstance(), NotesFragment.TAG, false);
+            ((MainActivity) getActivity()).loadFragment(NotesHomeFragment.newInstance(), NotesHomeFragment.TAG, false);
         }
 
 

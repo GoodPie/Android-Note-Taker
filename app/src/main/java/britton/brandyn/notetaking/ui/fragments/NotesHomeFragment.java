@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -23,19 +24,19 @@ import britton.brandyn.notetaking.ui.adapters.NoteArrayAdapter;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class NotesFragment extends Fragment {
+public class NotesHomeFragment extends Fragment {
 
-    public static final String TAG = "NotesFragment";
+    public static final String TAG = "NotesHomeFragment";
 
     private Context mContext;
     private NoteArrayAdapter mAdapter;
     private ListView mListView;
 
-    public NotesFragment() {
+    public NotesHomeFragment() {
     }
 
-    public static NotesFragment newInstance() {
-        return new NotesFragment();
+    public static NotesHomeFragment newInstance() {
+        return new NotesHomeFragment();
     }
 
     @Override
@@ -48,7 +49,7 @@ public class NotesFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add_note:
-                ((MainActivity) mContext).loadFragment(NewNoteFragment.newInstance(),
+                ((MainActivity) getActivity()).loadFragment(NewNoteFragment.newInstance(),
                         NewNoteFragment.TAG, true);
                 return true;
         }
@@ -59,7 +60,7 @@ public class NotesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View view = inflater.inflate(R.layout.fragment_main, container, false);
+       View view = inflater.inflate(R.layout.fragment_notes_home, container, false);
 
         // Get the context
         mContext = getActivity().getApplicationContext();
@@ -80,12 +81,18 @@ public class NotesFragment extends Fragment {
 
         @Override
         protected List<NoteItem> doInBackground(Void... voids) {
-            return ((MainActivity) getActivity()).getDatabase().doaAccess().getAllNotes();
+            return ((MainActivity) getActivity()).getDatabase().doaAccess().getAllIncompleteNotes();
         }
 
         @Override
-        protected void onPostExecute(List<NoteItem> results) {
+        protected void onPostExecute(final List<NoteItem> results) {
             mAdapter.setData(new ArrayList<NoteItem>(results));
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    ((MainActivity) getActivity()).OnNoteClicked(results.get(i).getId());
+                }
+            });
         }
     }
 }

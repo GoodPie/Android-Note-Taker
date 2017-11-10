@@ -32,7 +32,7 @@
             android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
         <TextView
-            android:id="@+id/tv_note_description"
+            android:id="@+id/tv_note_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="2"
