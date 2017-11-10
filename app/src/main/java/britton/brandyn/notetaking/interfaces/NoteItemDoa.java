@@ -17,6 +17,12 @@ public interface NoteItemDoa {
     @Query("SELECT * FROM notes WHERE id=:id")
     public NoteItem getSingleNote(int id);
 
+    @Query("SELECT * FROM NOTES WHERE completed = 0")
+    public List<NoteItem> getAllIncompleteNotes();
+
+    @Query("SELECT * FROM NOTES WHERE completed = 1")
+    public List<NoteItem> getAllCompleteNotes();
+
     @Query("SELECT * FROM NOTES")
     public List<NoteItem> getAllNotes();
 

@@ -7,4 +7,6 @@
     <string name="add_item">Add Item</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
+    <string name="example_date">01/01/2017</string>
+    <string name="complete_note">Complete Note</string>
 </resources>

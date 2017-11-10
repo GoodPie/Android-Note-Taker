@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="?android:attr/actionBarSize"
-    tools:context="britton.brandyn.notetaking.ui.fragments.NotesFragment"
+    tools:context="britton.brandyn.notetaking.ui.fragments.NotesHomeFragment"
     tools:showIn="@layout/activity_main">
 
     <ListView
