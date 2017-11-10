@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="britton.brandyn.notetaking.ui.activities.MainActivity">
+    <item
+        android:id="@+id/action_confirm_add_note"
+        android:icon="@drawable/ic_done"
+        android:title="@string/add_item"
+        app:showAsAction="always">
+    </item>
+</menu>

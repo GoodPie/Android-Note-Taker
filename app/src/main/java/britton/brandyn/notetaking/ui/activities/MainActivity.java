@@ -1,8 +1,12 @@
-package britton.brandyn.notetaking.ui;
+package britton.brandyn.notetaking.ui.activities;
 
+import android.arch.persistence.room.Room;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -10,8 +14,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import britton.brandyn.notetaking.R;
+import britton.brandyn.notetaking.helpers.NotesDatabase;
+import britton.brandyn.notetaking.models.NoteItem;
+import britton.brandyn.notetaking.ui.fragments.NewNoteFragment;
+import britton.brandyn.notetaking.ui.fragments.NotesFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    private NotesDatabase mDatabase = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +30,20 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Init database
+        mDatabase = getDatabase();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                loadFragment(NewNoteFragment.newInstance(), NewNoteFragment.TAG, true);
             }
         });
+
+        // Load the initial fragment
+        loadFragment(NotesFragment.newInstance(), null, false);
+
     }
 
     @Override
@@ -44,11 +60,49 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+            case R.id.action_add_note:
+                loadFragment(NewNoteFragment.newInstance(),
+                        NewNoteFragment.TAG, true);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void loadFragment(Fragment newFragment, String tag, boolean addToBack) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment, newFragment);
+        if (addToBack) {
+            transaction.addToBackStack(tag);
+        }
+
+        transaction.commit();
+    }
+
+    public void showFAB()
+    {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.show();
+    }
+
+    public void hideFAB()
+    {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.hide();
+    }
+
+    public NotesDatabase getDatabase()
+    {
+        if (mDatabase == null) {
+            // Create database if it doesn't already exist
+            mDatabase = Room.databaseBuilder(getApplicationContext(),
+                    NotesDatabase.class, "notes-db").build();
+        }
+
+        return mDatabase;
+    }
+
 }
