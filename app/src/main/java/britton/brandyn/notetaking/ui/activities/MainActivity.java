@@ -14,12 +14,14 @@ import android.view.MenuItem;
 import britton.brandyn.notetaking.R;
 import britton.brandyn.notetaking.helpers.NotesDatabase;
 import britton.brandyn.notetaking.ui.fragments.NewNoteFragment;
+import britton.brandyn.notetaking.ui.fragments.NoteEditFragment;
 import britton.brandyn.notetaking.ui.fragments.NoteFragment;
 import britton.brandyn.notetaking.ui.fragments.NotesHomeFragment;
 
 import static britton.brandyn.notetaking.helpers.NotesDatabase.MIGRATION_1_2;
 
-public class MainActivity extends AppCompatActivity implements NoteFragment.NoteFragmentInterface {
+public class MainActivity extends AppCompatActivity implements NoteFragment.NoteFragmentInterface,
+        NoteEditFragment.NoteEditFragmentInteractListener {
 
     private NotesDatabase mDatabase = null;
 
@@ -128,6 +130,16 @@ public class MainActivity extends AppCompatActivity implements NoteFragment.Note
         // Create new notes fragment
         NoteFragment fragment = NoteFragment.newInstance(noteId);
         String tag = NoteFragment.TAG;
+
+        // Load fragment to view
+        loadFragment(fragment, tag, true);
+    }
+
+    @Override
+    public void OnEditNote(int noteId) {
+        // Create new update notes fragment
+        NoteEditFragment fragment = NoteEditFragment.newInstance(noteId);
+        String tag = NoteEditFragment.TAG;
 
         // Load fragment to view
         loadFragment(fragment, tag, true);

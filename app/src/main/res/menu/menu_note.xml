@@ -6,6 +6,13 @@
         android:id="@+id/action_complete_note"
         android:icon="@drawable/ic_done"
         android:title="@string/complete_note"
-        app:showAsAction="always">
+        app:showAsAction="ifRoom">
     </item>
+
+    <item
+        android:id="@+id/action_edit_note"
+        android:title="@string/edit_note"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_edit"
+        />
 </menu>

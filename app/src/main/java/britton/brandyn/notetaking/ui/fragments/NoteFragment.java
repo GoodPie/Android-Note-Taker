@@ -90,6 +90,10 @@ public class NoteFragment extends Fragment {
                     new UpdateNoteTask().execute(mNote);
                 }
                 return true;
+            case R.id.action_edit_note:
+                if (mNote != null) {
+                    ((MainActivity) getActivity()).OnEditNote(mNoteId);
+                }
         }
         return false;
     }
