@@ -3,11 +3,28 @@ apply plugin: 'com.android.application'
 android {
 
     signingConfigs {
-        debug {
-            storeFile file("C:/Users/brand/.android/debug_02.keystore.jks")
-            storePassword "password"
-            keyAlias "AndroidDebugKey"
-            keyPassword "password"
+        
+        if (System.getenv("TRAVIS")) {
+            release {
+                storeFile rootProject.file("release.keystore.jks")
+                storePassword System.getenv("KEYSTORE_PASS")
+                keyAlias System.getenv("ALIAS_NAME")
+                keyPassword System.getenv("ALIAS_PASS")
+            }
+
+            debug {
+                storeFile rootProject.file("release.keystore.jks")
+                storePassword System.getenv("KEYSTORE_PASS")
+                keyAlias System.getenv("ALIAS_NAME")
+                keyPassword System.getenv("ALIAS_PASS")
+            }
+        } else {
+            debug {
+                storeFile file("C:/Users/brand/.android/debug_02.keystore.jks")
+                storePassword "password"
+                keyAlias "AndroidDebugKey"
+                keyPassword "password"
+            }
         }
     }
 
@@ -26,11 +43,14 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+
     }
 
     sourceSets {
