@@ -13,6 +13,12 @@ android {
 
     compileSdkVersion 26
     defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
         applicationId "britton.brandyn.notetaking"
         minSdkVersion 18
         targetSdkVersion 26
@@ -25,6 +31,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    sourceSets {
+        androidTest.assets.srcDirs +=
+                files("$projectDir/schemas".toString())
     }
 }
 
@@ -41,6 +52,7 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
     testImplementation 'junit:junit:4.12'
+    androidTestCompile "android.arch.persistence.room:testing:1.0.0"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

@@ -17,6 +17,8 @@ import britton.brandyn.notetaking.ui.fragments.NewNoteFragment;
 import britton.brandyn.notetaking.ui.fragments.NoteFragment;
 import britton.brandyn.notetaking.ui.fragments.NotesHomeFragment;
 
+import static britton.brandyn.notetaking.helpers.NotesDatabase.MIGRATION_1_2;
+
 public class MainActivity extends AppCompatActivity implements NoteFragment.NoteFragmentInterface {
 
     private NotesDatabase mDatabase = null;
@@ -115,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements NoteFragment.Note
         if (mDatabase == null) {
             // Create database if it doesn't already exist
             mDatabase = Room.databaseBuilder(getApplicationContext(),
-                    NotesDatabase.class, "notes-db").build();
+                    NotesDatabase.class, "notes-db").addMigrations(MIGRATION_1_2).build();
         }
 
         return mDatabase;
