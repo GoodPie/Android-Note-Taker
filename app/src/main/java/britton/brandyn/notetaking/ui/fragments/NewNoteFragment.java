@@ -20,7 +20,6 @@ public class NewNoteFragment extends Fragment {
 
     public static final String TAG = "NewNoteFragment";
 
-    private Context mContext;
 
     private EditText mNewNoteTitleET;
     private EditText mNewNoteDescET;
@@ -36,8 +35,6 @@ public class NewNoteFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mContext = getActivity().getApplicationContext();
 
         // Enable the options menu to set custom options menu
         setHasOptionsMenu(true);

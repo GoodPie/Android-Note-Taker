@@ -9,4 +9,5 @@
     <string name="description">Description</string>
     <string name="example_date">01/01/2017</string>
     <string name="complete_note">Complete Note</string>
+    <string name="edit_note">Edit Note</string>
 </resources>
