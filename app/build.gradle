@@ -2,10 +2,9 @@ apply plugin: 'com.android.application'
 
 android {
     lintOptions {
-
         abortOnError false
-
     }
+
     buildToolsVersion "26.0.2"
     signingConfigs {
 
