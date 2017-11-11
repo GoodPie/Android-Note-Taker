@@ -1,8 +1,10 @@
 package britton.brandyn.notetaking.models;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import java.security.InvalidParameterException;
 
@@ -18,16 +20,29 @@ public class NoteItem {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
+    @ColumnInfo()
     private String title;
+
     private String description;
+
     private String thumbnail;
+
     private boolean completed;
+
+
+    @ColumnInfo(name = "time_created")
+    private long timeCreated;
+
+    @ColumnInfo(name = "time_updated")
+    private long timeUpdated;
 
     public NoteItem(String title, String description, String thumbnail) {
         this.title = validateTitle(title);
         this.description = description;
         this.thumbnail = thumbnail;
         this.completed = false;
+        this.timeCreated = System.currentTimeMillis() / 1000L;
+        this.timeUpdated = this.timeCreated;
     }
 
     /**
@@ -90,4 +105,19 @@ public class NoteItem {
         this.completed = completed;
     }
 
+    public long getTimeCreated() {
+        return timeCreated;
+    }
+
+    public void setTimeCreated(long timeCreated) {
+        this.timeCreated = timeCreated;
+    }
+
+    public long getTimeUpdated() {
+        return timeUpdated;
+    }
+
+    public void setTimeUpdated(long timeUpdated) {
+        this.timeUpdated = timeUpdated;
+    }
 }
