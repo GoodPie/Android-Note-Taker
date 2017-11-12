@@ -18,9 +18,11 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
 
+    # For emulator usage
+    - sys-img-armeabi-v7a-android-24
 
 before_script:
-    - sys-img-armeabi-v7a-android-24
+
     - echo no | android create avd --force -n test -t android-24 --abi armeabi-v7a
     - emulator -avd test -no-audio -no-window &
     - android-wait-for-emulator
