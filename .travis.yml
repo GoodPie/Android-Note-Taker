@@ -10,7 +10,7 @@ env:
     - ANDROID_TAG=google_apis
 
 before_script:
-  - echo no | android create avd --force -n test -t \"android-$ANDROID_EMULATOR_API_LEVEL\" --abi $ANDROID_ABI --tag $ANDROID_TAG
+  - echo no | android create avd --force -n test -t "android-$ANDROID_EMULATOR_API_LEVEL" --abi $ANDROID_ABI --tag $ANDROID_TAG
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - sleep 180
