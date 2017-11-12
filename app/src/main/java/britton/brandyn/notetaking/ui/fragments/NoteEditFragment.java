@@ -29,6 +29,7 @@ import britton.brandyn.notetaking.ui.activities.MainActivity;
 public class NoteEditFragment extends Fragment {
 
     public static final String TAG = "NoteEditFragment";
+    public static final String TITLE = "Edit Note";
 
     private static final String ARG_NOTE_ID = "paramNoteId";
 
@@ -71,7 +72,10 @@ public class NoteEditFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_new_note, container, false);
 
         // Hide the floating action button
-        ((MainActivity) getActivity()).hideFAB();
+        MainActivity activity = (MainActivity) getActivity();
+        activity.hideFAB();
+        activity.setToolBarTitle(TITLE);
+        activity.expandAppBar(false);
 
         // Load views
         mTitleET = (EditText) view.findViewById(R.id.et_new_note_title);

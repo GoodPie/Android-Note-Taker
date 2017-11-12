@@ -65,13 +65,23 @@ public class NotesHomeFragment extends Fragment {
         // Get the context
         mContext = getActivity().getApplicationContext();
 
-        // Show the floating action button
-        ((MainActivity) getActivity()).showFAB();
+        // Housekeeping for the MainActivity
+        MainActivity activity = (MainActivity) getActivity();
+        activity.showFAB();
+        activity.setToolBarTitle(null);
+        activity.expandAppBar(false);
 
-        // Load views
+        // Create ListView
         mListView = (ListView) view.findViewById(R.id.lv_notes);
         mAdapter = new NoteArrayAdapter(mContext, R.layout.note_list_item, new ArrayList<NoteItem>());
+
+        // Set empty view of listview
+        View emptyView = inflater.inflate(R.layout.empty_list_view, null);
+        ViewGroup viewGroup = (ViewGroup) mListView.getParent();
+        viewGroup.addView(emptyView);
+        mListView.setEmptyView(emptyView);
         mListView.setAdapter(mAdapter);
+
         new LoadNotesTask().execute();
 
         return view;
@@ -93,6 +103,7 @@ public class NotesHomeFragment extends Fragment {
                     ((MainActivity) getActivity()).OnNoteClicked(results.get(i).getId());
                 }
             });
+            mListView.invalidateViews();
         }
     }
 }

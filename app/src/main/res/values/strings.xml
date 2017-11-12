@@ -10,4 +10,8 @@
     <string name="example_date">01/01/2017</string>
     <string name="complete_note">Complete Note</string>
     <string name="edit_note">Edit Note</string>
+    <string name="empty_list_string">There doesn\'t appear to be any notes yet. Click the \'+\' icon to add a new note.</string>
+    <string name="missing_notes">Missing Notes</string>
+    <string name="empty_list_title">Oh no!</string>
+    <string name="empty_list_desc">There doesn\'t appear to be any notes yet</string>
 </resources>

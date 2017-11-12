@@ -28,7 +28,6 @@ public class NoteFragment extends Fragment {
     private static final String ARG_NOTE_ID = "note_param";
     private int mNoteId;
 
-    private TextView mTitleTV;
     private TextView mDescTV;
 
     private NoteItem mNote;
@@ -59,15 +58,14 @@ public class NoteFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_note, container, false);
 
-        // Get the views
-        mTitleTV = (TextView) view.findViewById(R.id.tv_note_display_title);
+        MainActivity activity = (MainActivity) getActivity();
+        activity.hideFAB();
+        activity.expandAppBar(true);
+
         mDescTV = (TextView) view.findViewById(R.id.tv_note_display_desc);
 
         // Load the info from database
         new LoadNoteTask().execute(mNoteId);
-
-        // Show floating action button
-        ((MainActivity) getActivity()).showFAB();
 
         // Enable options menu
         setHasOptionsMenu(true);
@@ -109,7 +107,7 @@ public class NoteFragment extends Fragment {
         @Override
         protected void onPostExecute(NoteItem noteItem) {
             if (noteItem != null) {
-                mTitleTV.setText(noteItem.getTitle());
+                ((MainActivity) getActivity()).setToolBarTitle(noteItem.getTitle());
                 mDescTV.setText(noteItem.getDescription());
                 mNote = noteItem;
             }

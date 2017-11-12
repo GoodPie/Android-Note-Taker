@@ -1,10 +1,14 @@
 package britton.brandyn.notetaking.ui.activities;
 
 import android.arch.persistence.room.Room;
+import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -24,13 +28,20 @@ public class MainActivity extends AppCompatActivity implements NoteFragment.Note
         NoteEditFragment.NoteEditFragmentInteractListener {
 
     private NotesDatabase mDatabase = null;
+    private Toolbar mToolbar;
+    private AppBarLayout mAppBar;
+    private CollapsingToolbarLayout mCollapsingToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        mAppBar = (AppBarLayout) findViewById(R.id.appbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_detail);
+        mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
 
         // Init database
         mDatabase = getDatabase();
@@ -123,6 +134,27 @@ public class MainActivity extends AppCompatActivity implements NoteFragment.Note
         }
 
         return mDatabase;
+    }
+
+
+    public void setToolBarTitle(String title) {
+
+
+        if (title == null)
+            title = getApplicationTitle();
+
+        getSupportActionBar().setTitle(title);
+        mCollapsingToolbar.setTitle(title);
+    }
+
+    public void expandAppBar(boolean expand) {
+        mAppBar.setExpanded(expand);
+    }
+
+    private String getApplicationTitle() {
+        ApplicationInfo applicationInfo = getApplicationContext().getApplicationInfo();
+        int stringId = applicationInfo.labelRes;
+        return stringId == 0 ? applicationInfo.nonLocalizedLabel.toString() :  getApplicationContext().getString(stringId);
     }
 
     @Override
