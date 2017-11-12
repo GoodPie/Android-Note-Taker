@@ -19,7 +19,7 @@ android:
     - extra-android-m2repository
 
     # For emulator usage
-    - sys-img-armeabi-v7a-android-24
+    - sys-img-armeabi-v7a-addon-google_apis-google-24
 
 before_script:
 
