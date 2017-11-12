@@ -46,6 +46,9 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
 
+    # For emulator
+    - sys-img-armeabi-v7a-google_apis-$ANDROID_EMULATOR_API_LEVEL
+
 script:
   - ./gradlew clean build connectedAndroidTest -PdisablePreDex --stacktrace
 
