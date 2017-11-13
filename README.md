@@ -9,7 +9,7 @@ It's a very basic application demonstrating basic data storage, material design 
 ![No Notes](https://i.imgur.com/Bg8XUoO.png)
 ![New Note](https://imgur.com/AXDmGR7.png)
 ![Edit Note](https://imgur.com/ezXVk3J.png)
-![View Note](https://imgur.com/WCAJc7B)
+![View Note](https://imgur.com/WCAJc7B.png)
 
 #### Travis.ci
 
